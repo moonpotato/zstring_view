@@ -324,6 +324,36 @@ namespace mpt
             return m_view.find_last_not_of(s, pos);
         }
 
+        friend constexpr bool operator ==(basic_zstring_view lhs, basic_zstring_view rhs) noexcept
+        {
+            return lhs.m_view == rhs.m_view;
+        }
+
+        friend constexpr bool operator !=(basic_zstring_view lhs, basic_zstring_view rhs) noexcept
+        {
+            return lhs.m_view != rhs.m_view;
+        }
+
+        friend constexpr bool operator <(basic_zstring_view lhs, basic_zstring_view rhs) noexcept
+        {
+            return lhs.m_view < rhs.m_view;
+        }
+
+        friend constexpr bool operator <=(basic_zstring_view lhs, basic_zstring_view rhs) noexcept
+        {
+            return lhs.m_view <= rhs.m_view;
+        }
+
+        friend constexpr bool operator >(basic_zstring_view lhs, basic_zstring_view rhs) noexcept
+        {
+            return lhs.m_view > rhs.m_view;
+        }
+
+        friend constexpr bool operator >=(basic_zstring_view lhs, basic_zstring_view rhs) noexcept
+        {
+            return lhs.m_view >= rhs.m_view;
+        }
+
         constexpr operator underlying_type() const noexcept
         {
             return m_view;
