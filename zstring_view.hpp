@@ -32,11 +32,11 @@ namespace mpt
         using size_type              = typename underlying_type::size_type;
         using difference_type        = typename underlying_type::difference_type;
 
-        static constexpr size_type npos = size_type(-1);
+        static constexpr size_type npos = -1;
 
         constexpr basic_zstring_view() noexcept = default;
         constexpr basic_zstring_view(const basic_zstring_view& other) noexcept = default;
-        constexpr basic_zstring_view(const CharT* s) : m_view(s) {}
+        constexpr basic_zstring_view(const CharT* s) : m_view{s} {}
 
         constexpr basic_zstring_view& operator=(const basic_zstring_view& view) noexcept = default;
 
@@ -272,7 +272,7 @@ namespace mpt
 
     private:
         // Make this private to ensure zsv is always correctly null-terminated
-        constexpr basic_zstring_view(const CharT* s, size_type count) : m_view(s, count) {}
+        constexpr basic_zstring_view(const CharT* s, size_type count) : m_view{s, count} {}
 
         friend constexpr zstring_view    operator ""_zsv(const char* str, size_t len) noexcept;
         friend constexpr u16zstring_view operator ""_zsv(const char16_t* str, size_t len) noexcept;
@@ -288,22 +288,22 @@ namespace mpt
         {
             constexpr zstring_view operator ""_zsv(const char* str, size_t len) noexcept
             {
-                return zstring_view(str, len);
+                return {str, len};
             }
 
             constexpr u16zstring_view operator ""_zsv(const char16_t* str, size_t len) noexcept
             {
-                return u16zstring_view(str, len);
+                return {str, len};
             }
 
             constexpr u32zstring_view operator ""_zsv(const char32_t* str, size_t len) noexcept
             {
-                return u32zstring_view(str, len);
+                return {str, len};
             }
 
             constexpr wzstring_view operator ""_zsv(const wchar_t* str, size_t len) noexcept
             {
-                return wzstring_view(str, len);
+                return {str, len};
             }
         }
     }
