@@ -329,6 +329,11 @@ namespace mpt
             return m_view;
         }
 
+        friend auto operator << (std::basic_ostream<CharT, Traits>& os, basic_zstring_view v) -> decltype(os)
+        {
+            return os << v.m_view;
+        }
+
     private:
         // Make this private to ensure zsv is always correctly null-terminated
         constexpr basic_zstring_view(const CharT* s, size_type count) : m_view{s, count} {}
@@ -338,16 +343,8 @@ namespace mpt
         friend constexpr u32zstring_view operator ""_zsv(const char32_t* str, std::size_t len) noexcept;
         friend constexpr wzstring_view   operator ""_zsv(const wchar_t* str, std::size_t len) noexcept;
 
-        friend auto operator << (std::basic_ostream<CharT, Traits>& os, basic_zstring_view v) -> decltype(os);
-
         underlying_type m_view;
     };
-
-    template <typename CharT, typename Traits>
-    auto operator <<(std::basic_ostream<CharT, Traits>& os, basic_zstring_view<CharT, Traits> v) -> decltype(os)
-    {
-        return os << v.m_view;
-    }
 
     inline namespace literals
     {
