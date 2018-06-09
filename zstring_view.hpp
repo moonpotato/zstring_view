@@ -324,97 +324,7 @@ namespace mpt
             return m_view.find_last_not_of(s, pos);
         }
 
-        friend constexpr bool operator ==(basic_zstring_view lhs, basic_zstring_view rhs) noexcept
-        {
-            return lhs.m_view == rhs.m_view;
-        }
-
-        friend constexpr bool operator ==(basic_zstring_view lhs, underlying_type rhs) noexcept
-        {
-            return lhs.m_view == rhs;
-        }
-
-        friend constexpr bool operator ==(underlying_type lhs, basic_zstring_view rhs) noexcept
-        {
-            return lhs == rhs.m_view;
-        }
-
-        friend constexpr bool operator !=(basic_zstring_view lhs, basic_zstring_view rhs) noexcept
-        {
-            return lhs.m_view != rhs.m_view;
-        }
-
-        friend constexpr bool operator !=(basic_zstring_view lhs, underlying_type rhs) noexcept
-        {
-            return lhs.m_view != rhs;
-        }
-
-        friend constexpr bool operator !=(underlying_type lhs, basic_zstring_view rhs) noexcept
-        {
-            return lhs != rhs.m_view;
-        }
-
-        friend constexpr bool operator <(basic_zstring_view lhs, basic_zstring_view rhs) noexcept
-        {
-            return lhs.m_view < rhs.m_view;
-        }
-
-        friend constexpr bool operator <(basic_zstring_view lhs, underlying_type rhs) noexcept
-        {
-            return lhs.m_view < rhs;
-        }
-
-        friend constexpr bool operator <(underlying_type lhs, basic_zstring_view rhs) noexcept
-        {
-            return lhs < rhs.m_view;
-        }
-
-        friend constexpr bool operator <=(basic_zstring_view lhs, basic_zstring_view rhs) noexcept
-        {
-            return lhs.m_view <= rhs.m_view;
-        }
-
-        friend constexpr bool operator <=(basic_zstring_view lhs, underlying_type rhs) noexcept
-        {
-            return lhs.m_view <= rhs;
-        }
-
-        friend constexpr bool operator <=(underlying_type lhs, basic_zstring_view rhs) noexcept
-        {
-            return lhs <= rhs.m_view;
-        }
-
-        friend constexpr bool operator >(basic_zstring_view lhs, basic_zstring_view rhs) noexcept
-        {
-            return lhs.m_view > rhs.m_view;
-        }
-
-        friend constexpr bool operator >(basic_zstring_view lhs, underlying_type rhs) noexcept
-        {
-            return lhs.m_view > rhs;
-        }
-
-        friend constexpr bool operator >(underlying_type lhs, basic_zstring_view rhs) noexcept
-        {
-            return lhs > rhs.m_view;
-        }
-
-        friend constexpr bool operator >=(basic_zstring_view lhs, basic_zstring_view rhs) noexcept
-        {
-            return lhs.m_view >= rhs.m_view;
-        }
-
-        friend constexpr bool operator >=(basic_zstring_view lhs, underlying_type rhs) noexcept
-        {
-            return lhs.m_view >= rhs;
-        }
-
-        friend constexpr bool operator >=(underlying_type lhs, basic_zstring_view rhs) noexcept
-        {
-            return lhs >= rhs.m_view;
-        }
-
-        constexpr underlying_type view() const noexcept
+        constexpr const underlying_type& view() const noexcept
         {
             return m_view;
         }
@@ -437,7 +347,134 @@ namespace mpt
     };
 
     template <typename CharT, typename Traits>
-    auto operator << (std::basic_ostream<CharT, Traits>& os, basic_zstring_view<CharT, Traits> v) -> decltype(os)
+    constexpr bool operator ==(basic_zstring_view<CharT, Traits> lhs,
+                               basic_zstring_view<CharT, Traits> rhs) noexcept
+    {
+        return lhs.view() == rhs.view();
+    }
+
+    template <typename CharT, typename Traits>
+    constexpr bool operator ==(basic_zstring_view<CharT, Traits> lhs,
+                               std::basic_string_view<CharT, Traits> rhs) noexcept
+    {
+        return lhs.view() == rhs;
+    }
+
+    template <typename CharT, typename Traits>
+    constexpr bool operator ==(std::basic_string_view<CharT, Traits> lhs,
+                               basic_zstring_view<CharT, Traits> rhs) noexcept
+    {
+        return lhs == rhs.view();
+    }
+
+    template <typename CharT, typename Traits>
+    constexpr bool operator !=(basic_zstring_view<CharT, Traits> lhs,
+                               basic_zstring_view<CharT, Traits> rhs) noexcept
+    {
+        return lhs.view() != rhs.view();
+    }
+
+    template <typename CharT, typename Traits>
+    constexpr bool operator !=(basic_zstring_view<CharT, Traits> lhs,
+                               std::basic_string_view<CharT, Traits> rhs) noexcept
+    {
+        return lhs.view() != rhs;
+    }
+
+    template <typename CharT, typename Traits>
+    constexpr bool operator !=(std::basic_string_view<CharT, Traits> lhs,
+                               basic_zstring_view<CharT, Traits> rhs) noexcept
+    {
+        return lhs != rhs.view();
+    }
+
+    template <typename CharT, typename Traits>
+    constexpr bool operator <(basic_zstring_view<CharT, Traits> lhs,
+                              basic_zstring_view<CharT, Traits> rhs) noexcept
+    {
+        return lhs.view() < rhs.view();
+    }
+
+    template <typename CharT, typename Traits>
+    constexpr bool operator <(basic_zstring_view<CharT, Traits> lhs,
+                              std::basic_string_view<CharT, Traits> rhs) noexcept
+    {
+        return lhs.view() < rhs;
+    }
+
+    template <typename CharT, typename Traits>
+    constexpr bool operator <(std::basic_string_view<CharT, Traits> lhs,
+                              basic_zstring_view<CharT, Traits> rhs) noexcept
+    {
+        return lhs < rhs.view();
+    }
+
+    template <typename CharT, typename Traits>
+    constexpr bool operator <=(basic_zstring_view<CharT, Traits> lhs,
+                               basic_zstring_view<CharT, Traits> rhs) noexcept
+    {
+        return lhs.view() <= rhs.view();
+    }
+
+    template <typename CharT, typename Traits>
+    constexpr bool operator <=(basic_zstring_view<CharT, Traits> lhs,
+                               std::basic_string_view<CharT, Traits> rhs) noexcept
+    {
+        return lhs.view() <= rhs;
+    }
+
+    template <typename CharT, typename Traits>
+    constexpr bool operator <=(std::basic_string_view<CharT, Traits> lhs,
+                               basic_zstring_view<CharT, Traits> rhs) noexcept
+    {
+        return lhs <= rhs.view();
+    }
+
+    template <typename CharT, typename Traits>
+    constexpr bool operator >(basic_zstring_view<CharT, Traits> lhs,
+                              basic_zstring_view<CharT, Traits> rhs) noexcept
+    {
+        return lhs.view() > rhs.view();
+    }
+
+    template <typename CharT, typename Traits>
+    constexpr bool operator >(basic_zstring_view<CharT, Traits> lhs,
+                              std::basic_string_view<CharT, Traits> rhs) noexcept
+    {
+        return lhs.view() > rhs;
+    }
+
+    template <typename CharT, typename Traits>
+    constexpr bool operator >(std::basic_string_view<CharT, Traits> lhs,
+                              basic_zstring_view<CharT, Traits> rhs) noexcept
+    {
+        return lhs > rhs.view();
+    }
+
+    template <typename CharT, typename Traits>
+    constexpr bool operator >=(basic_zstring_view<CharT, Traits> lhs,
+                               basic_zstring_view<CharT, Traits> rhs) noexcept
+    {
+        return lhs.view() >= rhs.view();
+    }
+
+    template <typename CharT, typename Traits>
+    constexpr bool operator >=(basic_zstring_view<CharT, Traits> lhs,
+                               std::basic_string_view<CharT, Traits> rhs) noexcept
+    {
+        return lhs.view() >= rhs;
+    }
+
+    template <typename CharT, typename Traits>
+    constexpr bool operator >=(std::basic_string_view<CharT, Traits> lhs,
+                               basic_zstring_view<CharT, Traits> rhs) noexcept
+    {
+        return lhs >= rhs.view();
+    }
+
+    template <typename CharT, typename Traits>
+    auto operator << (std::basic_ostream<CharT, Traits>& os,
+                      basic_zstring_view<CharT, Traits> v) -> decltype(os)
     {
         return os << v.view();
     }
