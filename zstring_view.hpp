@@ -40,6 +40,15 @@ namespace mpt
         constexpr basic_zstring_view(const basic_zstring_view& other) noexcept = default;
         constexpr basic_zstring_view(const CharT* s) : m_view{s} {}
 
+        // Needed as a workaround for gcc bug #61648
+        // Allows non-friend string literal operators the ability to indirectly call the private constructor
+        // Safe calling of this requires *certainty* that s[count] is a null character
+        // Has to be public thusly, but don't call this
+        static constexpr basic_zstring_view _INTERNAL_unsafe_make_from_string_range(const CharT* s, size_type count)
+        {
+            return {s, count};
+        }
+
         constexpr basic_zstring_view& operator =(const basic_zstring_view& view) noexcept = default;
 
         constexpr const_iterator begin() const noexcept
@@ -335,13 +344,8 @@ namespace mpt
         }
 
     private:
-        // Make this private to ensure zsv is always correctly null-terminated
+        // Private constructor, called by the string literal operators
         constexpr basic_zstring_view(const CharT* s, size_type count) : m_view{s, count} {}
-
-        friend constexpr zstring_view    operator ""_zsv(const char* str, std::size_t len) noexcept;
-        friend constexpr u16zstring_view operator ""_zsv(const char16_t* str, std::size_t len) noexcept;
-        friend constexpr u32zstring_view operator ""_zsv(const char32_t* str, std::size_t len) noexcept;
-        friend constexpr wzstring_view   operator ""_zsv(const wchar_t* str, std::size_t len) noexcept;
 
         underlying_type m_view;
     };
@@ -485,22 +489,22 @@ namespace mpt
         {
             constexpr zstring_view operator ""_zsv(const char* str, std::size_t len) noexcept
             {
-                return {str, len};
+                return zstring_view::_INTERNAL_unsafe_make_from_string_range(str, len);
             }
 
             constexpr u16zstring_view operator ""_zsv(const char16_t* str, std::size_t len) noexcept
             {
-                return {str, len};
+                return u16zstring_view::_INTERNAL_unsafe_make_from_string_range(str, len);
             }
 
             constexpr u32zstring_view operator ""_zsv(const char32_t* str, std::size_t len) noexcept
             {
-                return {str, len};
+                return u32zstring_view::_INTERNAL_unsafe_make_from_string_range(str, len);
             }
 
             constexpr wzstring_view operator ""_zsv(const wchar_t* str, std::size_t len) noexcept
             {
-                return {str, len};
+                return wzstring_view::_INTERNAL_unsafe_make_from_string_range(str, len);
             }
         }
     }
