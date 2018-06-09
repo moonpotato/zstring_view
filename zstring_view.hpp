@@ -329,9 +329,29 @@ namespace mpt
             return lhs.m_view == rhs.m_view;
         }
 
+        friend constexpr bool operator ==(basic_zstring_view lhs, underlying_type rhs) noexcept
+        {
+            return lhs.m_view == rhs;
+        }
+
+        friend constexpr bool operator ==(underlying_type lhs, basic_zstring_view rhs) noexcept
+        {
+            return lhs == rhs.m_view;
+        }
+
         friend constexpr bool operator !=(basic_zstring_view lhs, basic_zstring_view rhs) noexcept
         {
             return lhs.m_view != rhs.m_view;
+        }
+
+        friend constexpr bool operator !=(basic_zstring_view lhs, underlying_type rhs) noexcept
+        {
+            return lhs.m_view != rhs;
+        }
+
+        friend constexpr bool operator !=(underlying_type lhs, basic_zstring_view rhs) noexcept
+        {
+            return lhs != rhs.m_view;
         }
 
         friend constexpr bool operator <(basic_zstring_view lhs, basic_zstring_view rhs) noexcept
@@ -339,9 +359,29 @@ namespace mpt
             return lhs.m_view < rhs.m_view;
         }
 
+        friend constexpr bool operator <(basic_zstring_view lhs, underlying_type rhs) noexcept
+        {
+            return lhs.m_view < rhs;
+        }
+
+        friend constexpr bool operator <(underlying_type lhs, basic_zstring_view rhs) noexcept
+        {
+            return lhs < rhs.m_view;
+        }
+
         friend constexpr bool operator <=(basic_zstring_view lhs, basic_zstring_view rhs) noexcept
         {
             return lhs.m_view <= rhs.m_view;
+        }
+
+        friend constexpr bool operator <=(basic_zstring_view lhs, underlying_type rhs) noexcept
+        {
+            return lhs.m_view <= rhs;
+        }
+
+        friend constexpr bool operator <=(underlying_type lhs, basic_zstring_view rhs) noexcept
+        {
+            return lhs <= rhs.m_view;
         }
 
         friend constexpr bool operator >(basic_zstring_view lhs, basic_zstring_view rhs) noexcept
@@ -349,9 +389,29 @@ namespace mpt
             return lhs.m_view > rhs.m_view;
         }
 
+        friend constexpr bool operator >(basic_zstring_view lhs, underlying_type rhs) noexcept
+        {
+            return lhs.m_view > rhs;
+        }
+
+        friend constexpr bool operator >(underlying_type lhs, basic_zstring_view rhs) noexcept
+        {
+            return lhs > rhs.m_view;
+        }
+
         friend constexpr bool operator >=(basic_zstring_view lhs, basic_zstring_view rhs) noexcept
         {
             return lhs.m_view >= rhs.m_view;
+        }
+
+        friend constexpr bool operator >=(basic_zstring_view lhs, underlying_type rhs) noexcept
+        {
+            return lhs.m_view >= rhs;
+        }
+
+        friend constexpr bool operator >=(underlying_type lhs, basic_zstring_view rhs) noexcept
+        {
+            return lhs >= rhs.m_view;
         }
 
         constexpr operator underlying_type() const noexcept
