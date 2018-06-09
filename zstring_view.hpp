@@ -1,6 +1,8 @@
 #ifndef ZSTRING_VIEW_INCLUDED
 #define ZSTRING_VIEW_INCLUDED
 
+#include <cstddef>
+#include <ostream>
 #include <string_view>
 
 namespace mpt
@@ -336,8 +338,16 @@ namespace mpt
         friend constexpr u32zstring_view operator ""_zsv(const char32_t* str, std::size_t len) noexcept;
         friend constexpr wzstring_view   operator ""_zsv(const wchar_t* str, std::size_t len) noexcept;
 
+        friend auto operator << (std::basic_ostream<CharT, Traits>& os, basic_zstring_view v) -> decltype(os);
+
         underlying_type m_view;
     };
+
+    template <typename CharT, typename Traits>
+    auto operator <<(std::basic_ostream<CharT, Traits>& os, basic_zstring_view<CharT, Traits> v) -> decltype(os)
+    {
+        return os << v.m_view;
+    }
 
     inline namespace literals
     {
