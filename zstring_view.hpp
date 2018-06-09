@@ -414,14 +414,14 @@ namespace mpt
             return lhs >= rhs.m_view;
         }
 
-        constexpr operator underlying_type() const noexcept
+        constexpr underlying_type view() const noexcept
         {
             return m_view;
         }
 
-        friend auto operator << (std::basic_ostream<CharT, Traits>& os, basic_zstring_view v) -> decltype(os)
+        constexpr operator underlying_type() const noexcept
         {
-            return os << v.m_view;
+            return m_view;
         }
 
     private:
@@ -435,6 +435,12 @@ namespace mpt
 
         underlying_type m_view;
     };
+
+    template <typename CharT, typename Traits>
+    auto operator << (std::basic_ostream<CharT, Traits>& os, basic_zstring_view<CharT, Traits> v) -> decltype(os)
+    {
+        return os << v.view();
+    }
 
     inline namespace literals
     {
