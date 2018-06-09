@@ -116,6 +116,12 @@ namespace mpt
             return m_view.data();
         }
 
+        // Additional function
+        constexpr const_pointer c_str() const noexcept
+        {
+            return m_view.data();
+        }
+
         constexpr size_type size() const noexcept
         {
             return m_view.size();
@@ -154,6 +160,12 @@ namespace mpt
         constexpr underlying_type substr(size_type pos = 0, size_type count = npos) const
         {
             return m_view.substr(pos, count);
+        }
+
+        // Additional function
+        constexpr basic_zstring_view suffix(size_type start = 0) const
+        {
+            return basic_zstring_view{m_view.substr(start, npos)};
         }
 
         constexpr int compare(underlying_type v) const noexcept
@@ -346,6 +358,9 @@ namespace mpt
     private:
         // Private constructor, called by the string literal operators
         constexpr basic_zstring_view(const CharT* s, size_type count) : m_view{s, count} {}
+
+        // Private constructor, needed by suffix()
+        explicit constexpr basic_zstring_view(const underlying_type& v) noexcept : m_view{v} {}
 
         underlying_type m_view;
     };
