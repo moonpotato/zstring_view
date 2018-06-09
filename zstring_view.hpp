@@ -1,5 +1,5 @@
-//  This file is part of moonpotato/zstring_view
-//  zstring_view: A non-owning reference to a null-terminated part of a string
+//   This file is part of moonpotato/zstring_view
+//   zstring_view: A non-owning reference to a null-terminated part of a string
 //
 //   Copyright 2018 moonpotato <git@funnelweb.xyz>
 //
