@@ -6,7 +6,7 @@ A non-owning reference to a null-terminated part of a string
 
 **TL;DR:** `mpt::zstring_view` extends the benefits of
 `std::string_view` to code that requires strings that are
-null-terminated.
+null-terminated. For full documentation, see the `docs/` directory.
 
 The introduction of `std::string_view` into C++ provides a better way
 to pass around non-owning references to (parts of) strings. For
@@ -47,3 +47,12 @@ potentially sacrificed also return `std::string_view`s.
 zstring_view is a header only library (and will remain so, even when
 more files are introduced). Simply include the repository path in your
 project's include path and include `zstring_view.hpp` where required.
+
+## License
+
+All code in the project is licensed under the Apache License 2.0. A
+full copy of the license document is provided in `LICENSE.txt`. All
+project documentation is licensed under the GNU Free Documentation
+License, a copy of which is provided in `docs/LICENSE.txt`. Much of
+this is based on content from the `cppreference.com` wiki, whose
+information is often helpful and is much appreciated.
