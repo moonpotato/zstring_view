@@ -51,7 +51,7 @@ namespace mpt
         using size_type              = typename underlying_type::size_type;
         using difference_type        = typename underlying_type::difference_type;
 
-        static constexpr size_type npos = -1;
+        static constexpr size_type npos = static_cast<size_type>(-1);
 
         constexpr basic_zstring_view() noexcept = default;
         constexpr basic_zstring_view(const basic_zstring_view& other) noexcept = default;
