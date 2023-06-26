@@ -55,8 +55,10 @@ namespace mpt
 
         constexpr basic_zstring_view() noexcept = default;
         constexpr basic_zstring_view(const basic_zstring_view& other) noexcept = default;
+        constexpr basic_zstring_view(basic_zstring_view&& other) noexcept = default;
         constexpr basic_zstring_view(const CharT* s) : m_view{s} {}
         constexpr basic_zstring_view(const std::basic_string<CharT>& s) : m_view{ s } {}
+        ~basic_zstring_view() = default;
 
         // Needed as a workaround for gcc bug #61648
         // Allows non-friend string literal operators the ability to indirectly call the private constructor
@@ -68,6 +70,7 @@ namespace mpt
         }
 
         constexpr basic_zstring_view& operator =(const basic_zstring_view& view) noexcept = default;
+        constexpr basic_zstring_view& operator =(basic_zstring_view&& view) noexcept = default;
 
         constexpr const_iterator begin() const noexcept
         {
